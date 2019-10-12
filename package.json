@@ -4,12 +4,16 @@
   "description": "Wander is a module designed to parse broken html. Also works as a general text parser.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write '**/*.{js,css,json,md}'"
   },
   "keywords": [
     "html",
     "parser"
   ],
   "author": "An Ly",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "prettier": "^1.18.2"
+  }
 }
