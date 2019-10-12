@@ -14,6 +14,7 @@
   "author": "An Ly",
   "license": "MIT",
   "devDependencies": {
+    "jest": "^24.9.0",
     "prettier": "^1.18.2"
   }
 }
