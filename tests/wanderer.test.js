@@ -187,3 +187,47 @@ test('Can remove price symbols', () => {
     ]).removePriceSymbols().value
   ).toStrictEqual(['12345000088', '124', 'abc'])
 })
+
+describe('wanderer.replace', () => {
+  test('Can replace string', () => {
+    expect(new wanderer('12345').replace('234', 'abc').value).toBe('1abc5')
+  })
+
+  test('Can replace string within array', () => {
+    expect(
+      new wanderer(['12345', '222', '333']).replace('2', 'a').value
+    ).toStrictEqual(['1a345', 'a22', '333'])
+  })
+
+  test('Can replace using regex', () => {
+    expect(new wanderer('12345').replace(/234/, 'abc').value).toBe('1abc5')
+  })
+
+  test('Can replace within array using regex', () => {
+    expect(
+      new wanderer(['12345', '222', '333']).replace(/2/g, 'a').value
+    ).toStrictEqual(['1a345', 'aaa', '333'])
+  })
+})
+
+describe('wanderer.replace', () => {
+  test('Can replace string', () => {
+    expect(new wanderer('12345').replace('234', 'abc').value).toBe('1abc5')
+  })
+
+  test('Can replace string within array', () => {
+    expect(
+      new wanderer(['12345', '222', '333']).replace('2', 'a').value
+    ).toStrictEqual(['1a345', 'a22', '333'])
+  })
+
+  test('Can replace using regex', () => {
+    expect(new wanderer('12345').replace(/234/, 'abc').value).toBe('1abc5')
+  })
+
+  test('Can replace within array using regex', () => {
+    expect(
+      new wanderer(['12345', '222', '333']).replace(/2/g, 'a').value
+    ).toStrictEqual(['1a345', 'aaa', '333'])
+  })
+})

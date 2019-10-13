@@ -168,3 +168,29 @@ test('Can remove price symbols', () => {
     wander.removePriceSymbols(['  1$2£3€4¥5,00,00. 88  ', '$1.24', 'abc'])
   ).toStrictEqual(['12345000088', '124', 'abc'])
 })
+
+describe('wander.replace', () => {
+  test('Can replace string', () => {
+    expect(wander.replace('12345', '234', 'abc')).toBe('1abc5')
+  })
+
+  test('Can replace string within array', () => {
+    expect(wander.replace(['12345', '222', '333'], '2', 'a')).toStrictEqual([
+      '1a345',
+      'a22',
+      '333',
+    ])
+  })
+
+  test('Can replace using regex', () => {
+    expect(wander.replace('12345', /234/, 'abc')).toBe('1abc5')
+  })
+
+  test('Can replace within array using regex', () => {
+    expect(wander.replace(['12345', '222', '333'], /2/g, 'a')).toStrictEqual([
+      '1a345',
+      'aaa',
+      '333',
+    ])
+  })
+})

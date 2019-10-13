@@ -67,4 +67,9 @@ module.exports = class Wanderer {
     this.value = wander.removePriceSymbols(this.value)
     return this
   }
+
+  replace(substr, newSubstr) {
+    this.value = wander.replace(this.value, substr, newSubstr)
+    return this
+  }
 }

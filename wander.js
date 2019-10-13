@@ -425,3 +425,16 @@ exports.getTagRepeat = (seed, html, start = 0, inclusive = false) => {
 exports.removePriceSymbols = text => {
   return exports.run(text, t => t.replace(/[\$\£\€\¥\,\.\s]/g, ''))
 }
+
+/**
+ * Runs replace (recursively if array)
+ *
+ * @param {string|array} text
+ * @param {string|regex} substr String or regex to find
+ * @param {string} newSubstr String replace with
+ *
+ * @return {string|array}
+ */
+exports.replace = (text, substr, newSubstr) => {
+  return exports.run(text, t => t.replace(substr, newSubstr))
+}
