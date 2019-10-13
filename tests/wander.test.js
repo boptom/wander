@@ -74,3 +74,8 @@ describe('wander.walk', () => {
     ])
   })
 })
+
+test('wander.getValue', () => {
+  expect(wander.getValue('input-name', testFile)).toBe('12340')
+  expect(wander.getValue('input-name-again', testFile)).toBe('5678')
+})

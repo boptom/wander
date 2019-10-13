@@ -37,4 +37,9 @@ module.exports = class Wanderer {
     this.value = wander.walkWithRepeat(steps, this.value, start)
     return this
   }
+
+  getValue(name) {
+    this.value = wander.getValue(name, this.value)
+    return this
+  }
 }

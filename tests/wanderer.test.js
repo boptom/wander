@@ -78,3 +78,8 @@ describe('wanderer.walk', () => {
     ).toStrictEqual(['<th>First</th>', '<th>Second</th>', '<th>Third</th>'])
   })
 })
+
+test('wanderer.getValue', () => {
+  expect(new wanderer(testFile).getValue('input-name').value).toBe('12340')
+  expect(new wanderer(testFile).getValue('input-name-again').value).toBe('5678')
+})

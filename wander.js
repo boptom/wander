@@ -174,3 +174,18 @@ exports.walkWith = (steps, html, start = 0) => {
 exports.walkWithRepeat = (steps, html, start = 0) => {
   return exports.walkRepeat(steps, html, start, true)
 }
+
+/**
+ * Returns the value attribute, given the name attribute.
+ *
+ * @param {string} name The html name attribute
+ * @param {string} html String to search within
+ *
+ * @return {string}
+ */
+exports.getValue = (name, html) => {
+  return exports.firstNonEmpty([
+    exports.walk(['name="' + name + '"', 'value="', '"'], html),
+    exports.walk(["name='" + name + "'", "value='", "'"], html),
+  ])
+}
