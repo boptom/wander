@@ -2,12 +2,18 @@ const fs = require('fs')
 const wander = require('../wander.js')
 const testFile = fs.readFileSync('./tests/test.html', 'utf8')
 
+test('wander.firstNonEmpty', () => {
+  expect(wander.firstNonEmpty(['', 0, false, 'first one', 'second one'])).toBe(
+    'first one'
+  )
+})
+
 describe('wander.run', () => {
-  test('on string', () => {
+  test('On string', () => {
     expect(wander.run('a string', v => v.length)).toBe(8)
   })
 
-  test('on array', () => {
+  test('On array', () => {
     expect(
       wander.run(['first', 'second', 'third'], v => v.length)
     ).toStrictEqual([5, 6, 5])

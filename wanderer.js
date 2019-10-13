@@ -13,6 +13,11 @@ module.exports = class Wanderer {
     return this
   }
 
+  firstNonEmpty() {
+    this.value = wander.firstNonEmpty(this.value)
+    return this
+  }
+
   walk(steps, start = 0, inclusive = false) {
     this.value = wander.walk(steps, this.value, start, inclusive)
     return this

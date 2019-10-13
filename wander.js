@@ -1,4 +1,15 @@
 /**
+ * Returns the first non-empty item
+ *
+ * @param {arr} Array of values
+ * @return {mixed}
+ */
+exports.firstNonEmpty = arr => {
+  const filtered = arr.filter(n => n)
+  return filtered.length === 0 ? '' : filtered[0]
+}
+
+/**
  * Runs a function on a string, or recursively over an array.
  *
  * @param {string|array} value

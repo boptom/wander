@@ -2,6 +2,13 @@ const fs = require('fs')
 const wanderer = require('../wanderer.js')
 const testFile = fs.readFileSync('./tests/test.html', 'utf8')
 
+test('wanderer.firstNonEmpty', () => {
+  expect(
+    new wanderer(['', 0, false, 'first one', 'second one']).firstNonEmpty()
+      .value
+  ).toBe('first one')
+})
+
 describe('wanderer.run', () => {
   test('on string', () => {
     expect(new wanderer('a string').run(v => v.length).value).toBe(8)
