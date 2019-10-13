@@ -52,4 +52,14 @@ module.exports = class Wanderer {
     this.value = wander.removeBetween(this.value, startStr, endStr, inclusive)
     return this
   }
+
+  getTag(seed, start = 0, inclusive = false) {
+    this.value = wander.getTag(seed, this.value, start, inclusive)
+    return this
+  }
+
+  getTagRepeat(seed, start = 0, inclusive = false) {
+    this.value = wander.getTagRepeat(seed, this.value, start, inclusive)
+    return this
+  }
 }

@@ -108,3 +108,53 @@ describe('wander.removeBetween', () => {
     ).toBe('abc<div >def</div><div >')
   })
 })
+
+describe('wander.getTag', () => {
+  test('Found in getTag', () => {
+    expect(wander.getTag('not found anywhere', testFile)).toBe('')
+    expect(wander.getTag('Some class', testFile)).toBe('Some class text')
+    expect(wander.getTag('<img', testFile)).toBe('')
+    expect(wander.getTag('<img', testFile, 0, true)).toBe(
+      '<img src="image.jpg" />'
+    )
+
+    expect(wander.getTag('<h1', testFile)).toBe('This is a test file')
+    expect(wander.getTag('some-class', testFile)).toBe('Some class text')
+    expect(wander.getTag('some-class', testFile, 0, true)).toBe(
+      '<div class="some-class">Some class text</div>'
+    )
+
+    expect(wander.getTag('some-class', testFile, 1260)).toBe('Some class again')
+    expect(wander.getTag('some-class', testFile, 1260, true)).toBe(
+      '<div class="some-class">Some class again</div>'
+    )
+
+    expect(wander.getTag('id="description"', testFile)).toBe(
+      'This is a bit of text'
+    )
+
+    expect(wander.getTag('extra-div', testFile)).toBe(
+      '<div><p>inner stuff</p></div>'
+    )
+
+    expect(wander.getTag('extra-div', testFile, 0, true)).toBe(
+      '<div class="extra-div"><div><p>inner stuff</p></div></div>'
+    )
+
+    expect(wander.getTag('This file is use', testFile, 0, true)).toBe(
+      'This file is use to run tests on Crawler'
+    )
+  })
+
+  test('Found in getTagRepeat', () => {
+    expect(wander.getTagRepeat('some-class', testFile)).toStrictEqual([
+      'Some class text',
+      'Some class again',
+    ])
+  })
+
+  expect(wander.getTagRepeat('<li', '<li>123</li><li>456</li>')).toStrictEqual([
+    '123',
+    '456',
+  ])
+})

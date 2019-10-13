@@ -232,3 +232,186 @@ exports.removeBetween = (text, startStr, endStr, inclusive = false) => {
     return t
   })
 }
+
+/**
+ * Finds the string between a <div></div> or other <*></*> tag
+ * e.g. <div $seed> ...</div>
+ *
+ * @param {string|array} seed The string to find within html. Will return the string between tags that contains this string.
+ * @param {string} html The haystack to search in
+ * @param {integer} start The starting position (default 0)
+ * @param {boolean} inclusive True returns surrounding tags
+ *
+ * @return {string|array} The string (or array of strings) within the <*></*> tags
+ */
+exports.getTag = (seed, html, start = 0, inclusive = false) => {
+  return exports.run(html, h => {
+    return exports.getTagDetails(seed, h, start, inclusive).match
+  })
+}
+
+/**
+ * Finds the string between a <div></div> or other <*></*> tag
+ * i.e. <div $seed> ...</div>
+ * Also returns the position of the last match
+ *
+ * @param {string} seed The string to find within html. Will return the string between tags that contains this string.
+ * @param {string} html The haystack to search in
+ * @param {integer} start The starting position (default 0)
+ * @param {boolean} inclusive True returns surrounding tags
+ *
+ * @return {object}
+ *       - {string} 'match' The string within the <*></*> tags
+ *       - {integer} 'end' The position of the end of the closing tag </*>
+ */
+exports.getTagDetails = (seed, html, start = 0, inclusive = false) => {
+  let pos = html.indexOf(seed, start)
+
+  if (pos === -1) {
+    return {
+      match: '',
+      lastPos: -1,
+    }
+  }
+
+  const firstOpenPos = html.lastIndexOf('<', pos)
+  const firstClosePos = html.lastIndexOf('>', pos)
+
+  // seed is between tags i.e. <*>seed</*>
+  if (firstClosePos >= firstOpenPos) {
+    let nextOpenPos = html.indexOf('<', firstClosePos + 1)
+
+    return {
+      match: html.substring(firstClosePos + 1, nextOpenPos),
+      lastPos: nextOpenPos + 1,
+    }
+  }
+
+  const tag = getTagType(html.substring(firstOpenPos))
+
+  if (tag.singular) {
+    const nextClosePos = html.indexOf('>', pos)
+
+    return {
+      match: inclusive ? html.substring(pos, nextClosePos + 1) : '',
+      lastPos: nextClosePos + 1,
+    }
+  }
+
+  let end = pos + tag.open.length
+
+  let nextClosePos = html.indexOf(tag.close, end)
+  let nextOpenPos = html.indexOf(tag.open, end)
+  let endOfString = false
+  let count = 1
+  let a = []
+
+  do {
+    nextOpenPos = html.indexOf(tag.open, end)
+    nextClosePos = html.indexOf(tag.close, end)
+
+    if (nextOpenPos === -1) {
+      nextOpenPos = html.length
+    }
+
+    if (nextClosePos === -1) {
+      nextClosePos = html.length
+    }
+
+    if (nextOpenPos > nextClosePos) {
+      count--
+      end = nextClosePos + tag.close.length
+    }
+
+    if (nextOpenPos < nextClosePos) {
+      count++
+      end = nextOpenPos + tag.open.length
+    }
+
+    if (nextOpenPos === nextClosePos) {
+      count = 0
+      end = nextOpenPos
+      endOfString = true
+    }
+  } while (count > 0 && count < 50)
+
+  if (!inclusive) {
+    pos = html.indexOf('>', pos) + 1
+    if (!endOfString) {
+      end = html.lastIndexOf('<', end) - 1
+    }
+  } else {
+    pos = html.lastIndexOf('<', pos)
+    end = html.indexOf('>', end) + 1
+  }
+
+  return {
+    match: html.substring(pos, end + 1).trim(),
+    lastPos: end + tag.close.length,
+  }
+}
+
+/**
+ * Returns start of html tag. e.g. <input
+ *
+ * @param {string} html
+ * @return {object}
+ *    - {string} 'tagOpen' e.g. <div
+ *    - {string} 'tagClose' e.g. </div
+ *    - {boolean} 'singular' True if tag does not require close. e.g. <img />
+ **/
+const getTagType = html => {
+  const tagOpen = exports.shortestIn(
+    [exports.walk([' '], html), exports.walk(['>'], html)].filter(n => n)
+  )
+
+  const tagClose = '</' + tagOpen.replace('<', '')
+
+  return {
+    open: tagOpen,
+    close: tagClose,
+    singular: isSingular(tagOpen),
+  }
+}
+
+/**
+ * True if tag does not require a closing tag. e.g. <br />
+ *
+ * @param {string} tag
+ * @return {boolean}
+ */
+const isSingular = tag => {
+  return ['img', 'br', 'hr', 'input', 'link', '!--', 'meta', 'link'].includes(
+    tag.replace('<', '')
+  )
+}
+
+/**
+ * Finds the string between a <div></div> or other <*></*> tag
+ * i.e. <div $seed> ...</div>
+ * Repeats until the end of html.
+ *
+ * @param {string} seed The string to find within html. Will return the string between tags that contains this string.
+ * @param {string} html The haystack to search in
+ * @param {integer} start The starting position (default 0)
+ * @param {boolean} inclusive True returns surrounding tags
+ *
+ * @return {array}
+ */
+exports.getTagRepeat = (seed, html, start = 0, inclusive = false) => {
+  return exports.run(html, h => {
+    let matches = []
+    let pos = start
+
+    do {
+      const w = exports.getTagDetails(seed, h, pos, inclusive)
+      pos = w.lastPos
+
+      if (pos !== -1) {
+        matches.push(w.match)
+      }
+    } while (pos !== -1)
+
+    return matches
+  })
+}
