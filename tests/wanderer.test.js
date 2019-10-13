@@ -1,4 +1,6 @@
+const fs = require('fs')
 const wanderer = require('../wanderer.js')
+const testFile = fs.readFileSync('./tests/test.html', 'utf8')
 
 describe('wanderer.run', () => {
   test('on string', () => {
@@ -9,5 +11,63 @@ describe('wanderer.run', () => {
     expect(
       new wanderer(['first', 'second', 'third']).run(v => v.length).value
     ).toStrictEqual([5, 6, 5])
+  })
+})
+
+describe('wanderer.walk', () => {
+  test('Not found on walk', () => {
+    expect(new wanderer(testFile).walk(['this is', 'not found']).value).toBe('')
+  })
+
+  test('Found on walk', () => {
+    expect(new wanderer(testFile).walk(['>']).value).toBe('<html')
+    expect(new wanderer(testFile).walk(['<title>', '</title>']).value).toBe(
+      'Test File'
+    )
+    expect(
+      new wanderer(testFile).walk(['<html>', '<title>', '</title>']).value
+    ).toBe('Test File')
+
+    expect(
+      new wanderer(testFile).walk(['<html>', '<title>', '</title>'], 100).value
+    ).toBe('')
+
+    expect(new wanderer(testFile).walk(['<table', '<td>', '</td>']).value).toBe(
+      'Row1, Data1'
+    )
+
+    expect(new wanderer(testFile).walk(['<td>', '</td>'], 600).value).toBe(
+      'Row2, Data1'
+    )
+
+    expect(
+      new wanderer(testFile).walk(
+        ['<html>', '<title>', '</title>'],
+        'non numeric'
+      ).value
+    ).toBe('Test File')
+  })
+
+  test('Found on walkRepeat', () => {
+    expect(
+      new wanderer(testFile).walkRepeat(['this does', 'not exist']).value
+    ).toStrictEqual([])
+
+    expect(
+      new wanderer(testFile).walkRepeat(['<th>', '</th>']).value
+    ).toStrictEqual(['First', 'Second', 'Third'])
+  })
+
+  test('Found on walkWith', () => {
+    expect(new wanderer(testFile).walkWith(['>']).value).toBe('<html>')
+    expect(new wanderer(testFile).walkWith(['<title>', '</title>']).value).toBe(
+      '<title>Test File</title>'
+    )
+  })
+
+  test('Found on walkWithRepeat', () => {
+    expect(
+      new wanderer(testFile).walkWithRepeat(['<th>', '</th>']).value
+    ).toStrictEqual(['<th>First</th>', '<th>Second</th>', '<th>Third</th>'])
   })
 })
