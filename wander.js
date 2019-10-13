@@ -415,3 +415,13 @@ exports.getTagRepeat = (seed, html, start = 0, inclusive = false) => {
     return matches
   })
 }
+
+/**
+ * Removes symbols found in prices.
+ *
+ * @param {string} text
+ * @return {string}
+ */
+exports.removePriceSymbols = text => {
+  return exports.run(text, t => t.replace(/[\$\£\€\¥\,\.\s]/g, ''))
+}

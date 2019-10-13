@@ -62,4 +62,9 @@ module.exports = class Wanderer {
     this.value = wander.getTagRepeat(seed, this.value, start, inclusive)
     return this
   }
+
+  removePriceSymbols() {
+    this.value = wander.removePriceSymbols(this.value)
+    return this
+  }
 }

@@ -158,3 +158,13 @@ describe('wander.getTag', () => {
     '456',
   ])
 })
+
+test('Can remove price symbols', () => {
+  expect(wander.removePriceSymbols('  1$2£3€4¥5,00,00. 88  ')).toBe(
+    '12345000088'
+  )
+
+  expect(
+    wander.removePriceSymbols(['  1$2£3€4¥5,00,00. 88  ', '$1.24', 'abc'])
+  ).toStrictEqual(['12345000088', '124', 'abc'])
+})

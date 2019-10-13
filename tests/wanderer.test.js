@@ -173,3 +173,17 @@ describe('wanderer.getTagRepeat', () => {
     ).toStrictEqual(['123', '456'])
   })
 })
+
+test('Can remove price symbols', () => {
+  expect(
+    new wanderer('  1$2£3€4¥5,00,00. 88  ').removePriceSymbols().value
+  ).toBe('12345000088')
+
+  expect(
+    new wanderer([
+      '  1$2£3€4¥5,00,00. 88  ',
+      '$1.24',
+      'abc',
+    ]).removePriceSymbols().value
+  ).toStrictEqual(['12345000088', '124', 'abc'])
+})
