@@ -8,6 +8,12 @@ test('wander.firstNonEmpty', () => {
   )
 })
 
+test('wander.shortestIn', () => {
+  expect(
+    wander.shortestIn(['longer string', 'short one', 'medium string'])
+  ).toBe('short one')
+})
+
 describe('wander.run', () => {
   test('On string', () => {
     expect(wander.run('a string', v => v.length)).toBe(8)

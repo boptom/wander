@@ -10,6 +10,16 @@ exports.firstNonEmpty = arr => {
 }
 
 /**
+ * Returns the shortest string in an array of strings
+ *
+ * @param {arr} Array of values
+ * @return {mixed}
+ */
+exports.shortestIn = arr => {
+  return arr.reduce((a, b) => (a.length < b.length ? a : b))
+}
+
+/**
  * Runs a function on a string, or recursively over an array.
  *
  * @param {string|array} value

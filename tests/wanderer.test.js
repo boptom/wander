@@ -9,6 +9,13 @@ test('wanderer.firstNonEmpty', () => {
   ).toBe('first one')
 })
 
+test('wander.shortest', () => {
+  expect(
+    new wanderer(['longer string', 'short one', 'medium string']).shortest()
+      .value
+  ).toBe('short one')
+})
+
 describe('wanderer.run', () => {
   test('on string', () => {
     expect(new wanderer('a string').run(v => v.length).value).toBe(8)

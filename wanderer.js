@@ -13,6 +13,11 @@ module.exports = class Wanderer {
     return this
   }
 
+  shortest() {
+    this.value = wander.shortestIn(this.value)
+    return this
+  }
+
   firstNonEmpty() {
     this.value = wander.firstNonEmpty(this.value)
     return this
