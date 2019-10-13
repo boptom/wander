@@ -79,3 +79,26 @@ test('wander.getValue', () => {
   expect(wander.getValue('input-name', testFile)).toBe('12340')
   expect(wander.getValue('input-name-again', testFile)).toBe('5678')
 })
+
+describe('wander.removeBetween', () => {
+  test('On string', () => {
+    expect(wander.removeBetween('abc 123 def 456', 'bc', 'def')).toBe(
+      'abcdef 456'
+    )
+  })
+  test('On string inclusive', () => {
+    expect(wander.removeBetween('abc 123 def 456', 'bc', 'def', true)).toBe(
+      'a 456'
+    )
+  })
+
+  test('On html', () => {
+    expect(
+      wander.removeBetween(
+        'abc<div class="hello">def</div><div id="">',
+        '<div ',
+        '>'
+      )
+    ).toBe('abc<div >def</div><div >')
+  })
+})

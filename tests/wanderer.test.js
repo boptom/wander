@@ -83,3 +83,26 @@ test('wanderer.getValue', () => {
   expect(new wanderer(testFile).getValue('input-name').value).toBe('12340')
   expect(new wanderer(testFile).getValue('input-name-again').value).toBe('5678')
 })
+
+describe('wanderer.removeBetween', () => {
+  test('On string', () => {
+    expect(
+      new wanderer('abc 123 def 456').removeBetween('bc', 'def').value
+    ).toBe('abcdef 456')
+  })
+
+  test('On string inclusive', () => {
+    expect(
+      new wanderer('abc 123 def 456').removeBetween('bc', 'def', true).value
+    ).toBe('a 456')
+  })
+
+  test('On html', () => {
+    expect(
+      new wanderer('abc<div class="hello">def</div><div id="">').removeBetween(
+        '<div ',
+        '>'
+      ).value
+    ).toBe('abc<div >def</div><div >')
+  })
+})

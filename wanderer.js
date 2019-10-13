@@ -42,4 +42,9 @@ module.exports = class Wanderer {
     this.value = wander.getValue(name, this.value)
     return this
   }
+
+  removeBetween(startStr, endStr, inclusive = false) {
+    this.value = wander.removeBetween(this.value, startStr, endStr, inclusive)
+    return this
+  }
 }

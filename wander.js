@@ -189,3 +189,36 @@ exports.getValue = (name, html) => {
     exports.walk(["name='" + name + "'", "value='", "'"], html),
   ])
 }
+
+/**
+ * Removes between 2 strings, returning the result.
+ *
+ * @param {string} text
+ * @param {string} startStr
+ * @param {string} endStr
+ * @param {boolean} inclusive True to also remove startStr and endStr
+ *
+ * @return {string}
+ */
+exports.removeBetween = (text, startStr, endStr, inclusive = false) => {
+  return exports.run(text, t => {
+    let startPos = 0
+    let start = 0
+    let end = 0
+
+    do {
+      start = t.indexOf(startStr, startPos)
+      end = t.indexOf(endStr, start)
+
+      if (start !== -1 && end !== -1) {
+        t = inclusive
+          ? t.substring(0, start) + t.substring(end + endStr.length)
+          : t.substring(0, start + startStr.length) + t.substring(end)
+
+        startPos = inclusive ? start : start + startStr.length + endStr.length
+      }
+    } while (start !== -1 && end !== -1)
+
+    return t
+  })
+}
