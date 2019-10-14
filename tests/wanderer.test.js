@@ -248,3 +248,17 @@ describe('wanderer.split', () => {
     ])
   })
 })
+
+describe('wanderer.removeNonNumericChars', () => {
+  test('On string', () => {
+    expect(new wanderer('abc120.ju78').removeNonNumericChars().value).toBe(
+      '12078'
+    )
+  })
+
+  test('On array', () => {
+    expect(
+      new wanderer(['abc120.ju78', '-123abc']).removeNonNumericChars().value
+    ).toStrictEqual(['12078', '123'])
+  })
+})

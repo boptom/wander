@@ -77,4 +77,9 @@ module.exports = class Wanderer {
     this.value = wander.split(this.value, separator)
     return this
   }
+
+  removeNonNumericChars() {
+    this.value = wander.removeNonNumericChars(this.value)
+    return this
+  }
 }

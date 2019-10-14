@@ -211,3 +211,15 @@ describe('wander.split', () => {
     ])
   })
 })
+
+describe('wander.removeNonNumericChars', () => {
+  test('On string', () => {
+    expect(wander.removeNonNumericChars('abc120.ju78')).toBe('12078')
+  })
+
+  test('On array', () => {
+    expect(
+      wander.removeNonNumericChars(['abc120.ju78', '-123abc'])
+    ).toStrictEqual(['12078', '123'])
+  })
+})

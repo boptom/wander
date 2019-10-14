@@ -451,3 +451,13 @@ exports.replace = (text, substr, newSubstr) => {
 exports.split = (text, separator) => {
   return exports.run(text, t => t.split(separator))
 }
+
+/**
+ * Removes non-numeric characters from string or within array (recursively if array)
+ *
+ * @param {string|array} text
+ * @return {string|array}
+ */
+exports.removeNonNumericChars = text => {
+  return exports.run(text, t => t.replace(/\D/g, ''))
+}
