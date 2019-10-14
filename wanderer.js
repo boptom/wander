@@ -72,4 +72,9 @@ module.exports = class Wanderer {
     this.value = wander.replace(this.value, substr, newSubstr)
     return this
   }
+
+  split(separator) {
+    this.value = wander.split(this.value, separator)
+    return this
+  }
 }

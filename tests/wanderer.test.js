@@ -231,3 +231,20 @@ describe('wanderer.replace', () => {
     ).toStrictEqual(['1a345', 'aaa', '333'])
   })
 })
+
+describe('wanderer.split', () => {
+  test('Can split string', () => {
+    expect(new wanderer('123*456*789').split('*').value).toStrictEqual([
+      '123',
+      '456',
+      '789',
+    ])
+  })
+
+  test('Can split within array', () => {
+    expect(new wanderer(['1*2*3', 'a*b*c']).split('*').value).toStrictEqual([
+      ['1', '2', '3'],
+      ['a', 'b', 'c'],
+    ])
+  })
+})

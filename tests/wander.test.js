@@ -194,3 +194,20 @@ describe('wander.replace', () => {
     ])
   })
 })
+
+describe('wander.split', () => {
+  test('Can split string', () => {
+    expect(wander.split('123*456*789', '*')).toStrictEqual([
+      '123',
+      '456',
+      '789',
+    ])
+  })
+
+  test('Can split within array', () => {
+    expect(wander.split(['1*2*3', 'a*b*c'], '*')).toStrictEqual([
+      ['1', '2', '3'],
+      ['a', 'b', 'c'],
+    ])
+  })
+})
