@@ -82,4 +82,9 @@ module.exports = class Wanderer {
     this.value = wander.removeNonNumericChars(this.value)
     return this
   }
+
+  removeEmpty() {
+    this.value = wander.removeEmpty(this.value)
+    return this
+  }
 }

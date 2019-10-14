@@ -223,3 +223,7 @@ describe('wander.removeNonNumericChars', () => {
     ).toStrictEqual(['12078', '123'])
   })
 })
+
+test('wander.removeEmpty', () => {
+  expect(wander.removeEmpty(['', 0, null, 1, 'abc'])).toStrictEqual([1, 'abc'])
+})

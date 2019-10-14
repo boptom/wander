@@ -461,3 +461,13 @@ exports.split = (text, separator) => {
 exports.removeNonNumericChars = text => {
   return exports.run(text, t => t.replace(/\D/g, ''))
 }
+
+/**
+ * Removes empty values from an array.
+ *
+ * @param {array} arr
+ * @return {array}
+ */
+exports.removeEmpty = arr => {
+  return arr.filter(n => n)
+}
