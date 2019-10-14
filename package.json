@@ -1,6 +1,6 @@
 {
   "name": "@boptom/wander",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Wander is a module designed to parse broken html. Also works as a general text parser.",
   "main": "index.js",
   "scripts": {
