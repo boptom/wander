@@ -53,13 +53,13 @@ module.exports = class Wanderer {
     return this
   }
 
-  getTag(seed, start = 0, inclusive = false) {
-    this.value = wander.getTag(seed, this.value, start, inclusive)
+  find(seed, start = 0, inclusive = false) {
+    this.value = wander.find(seed, this.value, start, inclusive)
     return this
   }
 
-  getTagAll(seed, start = 0, inclusive = false) {
-    this.value = wander.getTagAll(seed, this.value, start, inclusive)
+  findAll(seed, start = 0, inclusive = false) {
+    this.value = wander.findAll(seed, this.value, start, inclusive)
     return this
   }
 

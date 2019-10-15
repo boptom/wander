@@ -114,55 +114,53 @@ describe('wanderer.removeBetween', () => {
   })
 })
 
-describe('wanderer.getTag', () => {
-  test('Found in getTag', () => {
-    expect(new wanderer(testFile).getTag('not found anywhere').value).toBe('')
-    expect(new wanderer(testFile).getTag('Some class').value).toBe(
+describe('wanderer.find', () => {
+  test('Found with find', () => {
+    expect(new wanderer(testFile).find('not found anywhere').value).toBe('')
+    expect(new wanderer(testFile).find('Some class').value).toBe(
       'Some class text'
     )
-    expect(new wanderer(testFile).getTag('<img').value).toBe('')
-    expect(new wanderer(testFile).getTag('<img', 0, true).value).toBe(
+    expect(new wanderer(testFile).find('<img').value).toBe('')
+    expect(new wanderer(testFile).find('<img', 0, true).value).toBe(
       '<img src="image.jpg" />'
     )
 
-    expect(new wanderer(testFile).getTag('<h1').value).toBe(
-      'This is a test file'
-    )
-    expect(new wanderer(testFile).getTag('some-class').value).toBe(
+    expect(new wanderer(testFile).find('<h1').value).toBe('This is a test file')
+    expect(new wanderer(testFile).find('some-class').value).toBe(
       'Some class text'
     )
-    expect(new wanderer(testFile).getTag('some-class', 0, true).value).toBe(
+    expect(new wanderer(testFile).find('some-class', 0, true).value).toBe(
       '<div class="some-class">Some class text</div>'
     )
 
-    expect(new wanderer(testFile).getTag('some-class', 1260).value).toBe(
+    expect(new wanderer(testFile).find('some-class', 1260).value).toBe(
       'Some class again'
     )
-    expect(new wanderer(testFile).getTag('some-class', 1260, true).value).toBe(
+    expect(new wanderer(testFile).find('some-class', 1260, true).value).toBe(
       '<div class="some-class">Some class again</div>'
     )
 
-    expect(new wanderer(testFile).getTag('id="description"').value).toBe(
+    expect(new wanderer(testFile).find('id="description"').value).toBe(
       'This is a bit of text'
     )
 
-    expect(new wanderer(testFile).getTag('extra-div').value).toBe(
+    expect(new wanderer(testFile).find('extra-div').value).toBe(
       '<div><p>inner stuff</p></div>'
     )
 
-    expect(new wanderer(testFile).getTag('extra-div', 0, true).value).toBe(
+    expect(new wanderer(testFile).find('extra-div', 0, true).value).toBe(
       '<div class="extra-div"><div><p>inner stuff</p></div></div>'
     )
 
-    expect(
-      new wanderer(testFile).getTag('This file is use', 0, true).value
-    ).toBe('This file is use to run tests on Crawler')
+    expect(new wanderer(testFile).find('This file is use', 0, true).value).toBe(
+      'This file is use to run tests on Crawler'
+    )
   })
 })
 
-describe('wanderer.getTagAll', () => {
-  test('Found in getTagAll', () => {
-    expect(new wanderer(testFile).getTagAll('some-class').value).toStrictEqual([
+describe('wanderer.findAll', () => {
+  test('Found with findAll', () => {
+    expect(new wanderer(testFile).findAll('some-class').value).toStrictEqual([
       'Some class text',
       'Some class again',
     ])
@@ -170,7 +168,7 @@ describe('wanderer.getTagAll', () => {
 
   test('Found in html', () => {
     expect(
-      new wanderer('<li>123</li><li>456</li>').getTagAll('<li').value
+      new wanderer('<li>123</li><li>456</li>').findAll('<li').value
     ).toStrictEqual(['123', '456'])
   })
 })

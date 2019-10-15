@@ -109,51 +109,51 @@ describe('wander.removeBetween', () => {
   })
 })
 
-describe('wander.getTag', () => {
-  test('Found in getTag', () => {
-    expect(wander.getTag('not found anywhere', testFile)).toBe('')
-    expect(wander.getTag('Some class', testFile)).toBe('Some class text')
-    expect(wander.getTag('<img', testFile)).toBe('')
-    expect(wander.getTag('<img', testFile, 0, true)).toBe(
+describe('wander.find', () => {
+  test('Found with find', () => {
+    expect(wander.find('not found anywhere', testFile)).toBe('')
+    expect(wander.find('Some class', testFile)).toBe('Some class text')
+    expect(wander.find('<img', testFile)).toBe('')
+    expect(wander.find('<img', testFile, 0, true)).toBe(
       '<img src="image.jpg" />'
     )
 
-    expect(wander.getTag('<h1', testFile)).toBe('This is a test file')
-    expect(wander.getTag('some-class', testFile)).toBe('Some class text')
-    expect(wander.getTag('some-class', testFile, 0, true)).toBe(
+    expect(wander.find('<h1', testFile)).toBe('This is a test file')
+    expect(wander.find('some-class', testFile)).toBe('Some class text')
+    expect(wander.find('some-class', testFile, 0, true)).toBe(
       '<div class="some-class">Some class text</div>'
     )
 
-    expect(wander.getTag('some-class', testFile, 1260)).toBe('Some class again')
-    expect(wander.getTag('some-class', testFile, 1260, true)).toBe(
+    expect(wander.find('some-class', testFile, 1260)).toBe('Some class again')
+    expect(wander.find('some-class', testFile, 1260, true)).toBe(
       '<div class="some-class">Some class again</div>'
     )
 
-    expect(wander.getTag('id="description"', testFile)).toBe(
+    expect(wander.find('id="description"', testFile)).toBe(
       'This is a bit of text'
     )
 
-    expect(wander.getTag('extra-div', testFile)).toBe(
+    expect(wander.find('extra-div', testFile)).toBe(
       '<div><p>inner stuff</p></div>'
     )
 
-    expect(wander.getTag('extra-div', testFile, 0, true)).toBe(
+    expect(wander.find('extra-div', testFile, 0, true)).toBe(
       '<div class="extra-div"><div><p>inner stuff</p></div></div>'
     )
 
-    expect(wander.getTag('This file is use', testFile, 0, true)).toBe(
+    expect(wander.find('This file is use', testFile, 0, true)).toBe(
       'This file is use to run tests on Crawler'
     )
   })
 
-  test('Found in getTagAll', () => {
-    expect(wander.getTagAll('some-class', testFile)).toStrictEqual([
+  test('Found with findAll', () => {
+    expect(wander.findAll('some-class', testFile)).toStrictEqual([
       'Some class text',
       'Some class again',
     ])
   })
 
-  expect(wander.getTagAll('<li', '<li>123</li><li>456</li>')).toStrictEqual([
+  expect(wander.findAll('<li', '<li>123</li><li>456</li>')).toStrictEqual([
     '123',
     '456',
   ])

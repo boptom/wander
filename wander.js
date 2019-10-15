@@ -244,9 +244,9 @@ exports.removeBetween = (text, startStr, endStr, inclusive = false) => {
  *
  * @return {string|array} The string (or array of strings) within the <*></*> tags
  */
-exports.getTag = (seed, html, start = 0, inclusive = false) => {
+exports.find = (seed, html, start = 0, inclusive = false) => {
   return exports.run(html, h => {
-    return exports.getTagDetails(seed, h, start, inclusive).match
+    return exports.findDetails(seed, h, start, inclusive).match
   })
 }
 
@@ -264,7 +264,7 @@ exports.getTag = (seed, html, start = 0, inclusive = false) => {
  *       - {string} 'match' The string within the <*></*> tags
  *       - {integer} 'end' The position of the end of the closing tag </*>
  */
-exports.getTagDetails = (seed, html, start = 0, inclusive = false) => {
+exports.findDetails = (seed, html, start = 0, inclusive = false) => {
   let pos = html.indexOf(seed, start)
 
   if (pos === -1) {
@@ -397,13 +397,13 @@ const isSingular = tag => {
  *
  * @return {array}
  */
-exports.getTagAll = (seed, html, start = 0, inclusive = false) => {
+exports.findAll = (seed, html, start = 0, inclusive = false) => {
   return exports.run(html, h => {
     let matches = []
     let pos = start
 
     do {
-      const w = exports.getTagDetails(seed, h, pos, inclusive)
+      const w = exports.findDetails(seed, h, pos, inclusive)
       pos = w.lastPos
 
       if (pos !== -1) {
