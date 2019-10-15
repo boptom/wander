@@ -297,3 +297,9 @@ describe('wanderer.removeComments', () => {
     ).toStrictEqual(['abc def', '123 456'])
   })
 })
+
+test('wanderer.cleanHtml', () => {
+  expect(new wanderer('<h1 blah>123</h1>').cleanHtml().value).toBe(
+    '<h1>123</h1>'
+  )
+})

@@ -102,4 +102,31 @@ module.exports = class Wanderer {
     this.value = wander.removeComments(this.value)
     return this
   }
+
+  cleanHtml() {
+    this.removeComments()
+      .removeBetween('<h1', '>')
+      .removeBetween('<h2', '>')
+      .removeBetween('<h3', '>')
+      .removeBetween('<h4', '>')
+      .removeBetween('<h5', '>')
+      .removeBetween('<table', '>')
+      .removeBetween('<th', '>')
+      .removeBetween('<td', '>')
+      .removeBetween('<ol', '>')
+      .removeBetween('<li', '>')
+      .removeBetween('<div', '>')
+      .removeBetween('<span', '>')
+      .removeBetween('<a', '>')
+      .removeBetween('<i', '>')
+      .removeBetween('<p', '>')
+      .removeBetween('class="', '"', true)
+      .removeBetween('id="', '"', true)
+      .removeBetween('<hr', '>', true)
+      .removeBetween('<style', '/style>', true)
+      .removeBetween('<script', '/script>', true)
+      .replace(/\r?\n|\r/g, '')
+
+    return this
+  }
 }
