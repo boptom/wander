@@ -139,4 +139,9 @@ module.exports = class Wanderer {
     this.value = wander.nullIfMissing(search, this.value)
     return this
   }
+
+  nullIfNotNumeric() {
+    this.value = wander.nullIfNotNumeric(this.value)
+    return this
+  }
 }

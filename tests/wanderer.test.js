@@ -327,3 +327,16 @@ describe('wanderer.nullIfMissing', () => {
     )
   })
 })
+
+describe('wanderer.nullIfNotNumeric', () => {
+  test('On string', () => {
+    expect(new wanderer('z').nullIfNotNumeric().value).toBe(null)
+    expect(new wanderer('123').nullIfNotNumeric().value).toBe('123')
+  })
+
+  test('On array', () => {
+    expect(new wanderer(['cat', '123']).nullIfNotNumeric().value).toStrictEqual(
+      [null, '123']
+    )
+  })
+})

@@ -516,3 +516,16 @@ exports.nullIfMissing = (search, arr) => {
     return t.includes(search) ? t : null
   })
 }
+
+/**
+ * Changes to null if a string is not numeric.
+ * Usually used with an array of strings.
+ *
+ * @param {array|string} arr
+ * @return {array|string}
+ */
+exports.nullIfNotNumeric = arr => {
+  return exports.run(arr, t => {
+    return isNaN(t) ? null : t
+  })
+}

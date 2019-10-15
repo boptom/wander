@@ -274,3 +274,14 @@ describe('wander.nullIfMissing', () => {
     ])
   })
 })
+
+describe('wander.nullIfNotNumeric', () => {
+  test('On string', () => {
+    expect(wander.nullIfNotNumeric('z')).toBe(null)
+    expect(wander.nullIfNotNumeric('123')).toBe('123')
+  })
+
+  test('On array', () => {
+    expect(wander.nullIfNotNumeric(['cat', '123'])).toStrictEqual([null, '123'])
+  })
+})
