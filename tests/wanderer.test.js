@@ -267,3 +267,9 @@ test('wanderer.removeEmpty', () => {
     new wanderer(['', 0, null, 1, 'abc']).removeEmpty().value
   ).toStrictEqual([1, 'abc'])
 })
+
+test('wanderer.unique', () => {
+  expect(
+    new wanderer([1, 2, 2, 2, 'a', 'a', [1, 2, 3], [1, 2, 3]]).unique().value
+  ).toStrictEqual([1, 2, 'a', [1, 2, 3]])
+})

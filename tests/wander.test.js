@@ -227,3 +227,9 @@ describe('wander.removeNonNumericChars', () => {
 test('wander.removeEmpty', () => {
   expect(wander.removeEmpty(['', 0, null, 1, 'abc'])).toStrictEqual([1, 'abc'])
 })
+
+test('wander.unique', () => {
+  expect(
+    wander.unique([1, 2, 2, 2, 'a', 'a', [1, 2, 3], [1, 2, 3]])
+  ).toStrictEqual([1, 2, 'a', [1, 2, 3]])
+})

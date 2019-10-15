@@ -87,4 +87,9 @@ module.exports = class Wanderer {
     this.value = wander.removeEmpty(this.value)
     return this
   }
+
+  unique() {
+    this.value = wander.unique(this.value)
+    return this
+  }
 }

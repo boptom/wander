@@ -470,3 +470,13 @@ exports.removeNonNumericChars = text => {
 exports.removeEmpty = arr => {
   return arr.filter(n => n)
 }
+
+/**
+ * Removes dupkicate values from an array.
+ *
+ * @param {array} arr
+ * @return {array}
+ */
+exports.unique = arr => {
+  return Array.from(new Set(arr.map(JSON.stringify)), JSON.parse)
+}
