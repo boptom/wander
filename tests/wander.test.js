@@ -248,3 +248,16 @@ describe('wander.removeComments', () => {
     ).toStrictEqual(['abc def', '123 456'])
   })
 })
+
+describe('wander.nullIfContains', () => {
+  test('On string', () => {
+    expect(wander.nullIfContains('a', 'cat')).toBe(null)
+  })
+
+  test('On array', () => {
+    expect(wander.nullIfContains('a', ['cat', 'dog'])).toStrictEqual([
+      null,
+      'dog',
+    ])
+  })
+})

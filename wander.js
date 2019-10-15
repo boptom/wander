@@ -490,3 +490,16 @@ exports.unique = arr => {
 exports.removeComments = html => {
   return exports.run(html, t => t.replace(/<!--.*-->/g, ''))
 }
+
+/**
+ * Changes to null if a string contains a certain string.
+ * Usually used with an array of strings.
+ *
+ * @param {array|string} arr
+ * @return {array|string}
+ */
+exports.nullIfContains = (search, arr) => {
+  return exports.run(arr, t => {
+    return t.includes(search) ? null : t
+  })
+}

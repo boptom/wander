@@ -129,4 +129,9 @@ module.exports = class Wanderer {
 
     return this
   }
+
+  nullIfContains(search) {
+    this.value = wander.nullIfContains(search, this.value)
+    return this
+  }
 }

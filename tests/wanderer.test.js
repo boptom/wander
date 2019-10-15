@@ -303,3 +303,15 @@ test('wanderer.cleanHtml', () => {
     '<h1>123</h1>'
   )
 })
+
+describe('wanderer.nullIfContains', () => {
+  test('On string', () => {
+    expect(new wanderer('cat').nullIfContains('a').value).toBe(null)
+  })
+
+  test('On array', () => {
+    expect(
+      new wanderer(['cat', 'dog']).nullIfContains('a').value
+    ).toStrictEqual([null, 'dog'])
+  })
+})
