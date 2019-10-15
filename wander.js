@@ -141,7 +141,7 @@ exports.walk = (steps, html, start = 0, inclusive = false) => {
  *
  * @return {array}
  */
-exports.walkRepeat = (steps, html, start = 0, inclusive = false) => {
+exports.walkAll = (steps, html, start = 0, inclusive = false) => {
   return exports.run(html, h => {
     let matches = []
     let pos = start
@@ -173,7 +173,7 @@ exports.walkWith = (steps, html, start = 0) => {
 }
 
 /**
- * Alias for walkRepeat function, with inclusive = true
+ * Alias for walkWith function, with inclusive = true
  *
  * @param {array} steps An array of strings to search for
  * @param {string} html String to search within
@@ -181,8 +181,8 @@ exports.walkWith = (steps, html, start = 0) => {
  *
  * @return {array}
  */
-exports.walkWithRepeat = (steps, html, start = 0) => {
-  return exports.walkRepeat(steps, html, start, true)
+exports.walkWithAll = (steps, html, start = 0) => {
+  return exports.walkAll(steps, html, start, true)
 }
 
 /**
@@ -387,9 +387,8 @@ const isSingular = tag => {
 }
 
 /**
- * Finds the string between a <div></div> or other <*></*> tag
+ * Finds all the string between a <div></div> or other <*></*> tag
  * i.e. <div $seed> ...</div>
- * Repeats until the end of html.
  *
  * @param {string} seed The string to find within html. Will return the string between tags that contains this string.
  * @param {string} html The haystack to search in
@@ -398,7 +397,7 @@ const isSingular = tag => {
  *
  * @return {array}
  */
-exports.getTagRepeat = (seed, html, start = 0, inclusive = false) => {
+exports.getTagAll = (seed, html, start = 0, inclusive = false) => {
   return exports.run(html, h => {
     let matches = []
     let pos = start

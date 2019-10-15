@@ -33,13 +33,13 @@ module.exports = class Wanderer {
     return this
   }
 
-  walkRepeat(steps, start, inclusive = false) {
-    this.value = wander.walkRepeat(steps, this.value, start, inclusive)
+  walkAll(steps, start, inclusive = false) {
+    this.value = wander.walkAll(steps, this.value, start, inclusive)
     return this
   }
 
-  walkWithRepeat(steps, start) {
-    this.value = wander.walkWithRepeat(steps, this.value, start)
+  walkWithAll(steps, start) {
+    this.value = wander.walkWithAll(steps, this.value, start)
     return this
   }
 
@@ -58,8 +58,8 @@ module.exports = class Wanderer {
     return this
   }
 
-  getTagRepeat(seed, start = 0, inclusive = false) {
-    this.value = wander.getTagRepeat(seed, this.value, start, inclusive)
+  getTagAll(seed, start = 0, inclusive = false) {
+    this.value = wander.getTagAll(seed, this.value, start, inclusive)
     return this
   }
 

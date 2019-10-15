@@ -62,13 +62,13 @@ describe('wanderer.walk', () => {
     ).toBe('Test File')
   })
 
-  test('Found on walkRepeat', () => {
+  test('Found on walkAll', () => {
     expect(
-      new wanderer(testFile).walkRepeat(['this does', 'not exist']).value
+      new wanderer(testFile).walkAll(['this does', 'not exist']).value
     ).toStrictEqual([])
 
     expect(
-      new wanderer(testFile).walkRepeat(['<th>', '</th>']).value
+      new wanderer(testFile).walkAll(['<th>', '</th>']).value
     ).toStrictEqual(['First', 'Second', 'Third'])
   })
 
@@ -79,9 +79,9 @@ describe('wanderer.walk', () => {
     )
   })
 
-  test('Found on walkWithRepeat', () => {
+  test('Found on walkWithAll', () => {
     expect(
-      new wanderer(testFile).walkWithRepeat(['<th>', '</th>']).value
+      new wanderer(testFile).walkWithAll(['<th>', '</th>']).value
     ).toStrictEqual(['<th>First</th>', '<th>Second</th>', '<th>Third</th>'])
   })
 })
@@ -160,16 +160,17 @@ describe('wanderer.getTag', () => {
   })
 })
 
-describe('wanderer.getTagRepeat', () => {
-  test('Found in getTagRepeat', () => {
-    expect(
-      new wanderer(testFile).getTagRepeat('some-class').value
-    ).toStrictEqual(['Some class text', 'Some class again'])
+describe('wanderer.getTagAll', () => {
+  test('Found in getTagAll', () => {
+    expect(new wanderer(testFile).getTagAll('some-class').value).toStrictEqual([
+      'Some class text',
+      'Some class again',
+    ])
   })
 
   test('Found in html', () => {
     expect(
-      new wanderer('<li>123</li><li>456</li>').getTagRepeat('<li').value
+      new wanderer('<li>123</li><li>456</li>').getTagAll('<li').value
     ).toStrictEqual(['123', '456'])
   })
 })

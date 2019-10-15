@@ -53,12 +53,12 @@ describe('wander.walk', () => {
     ).toBe('Test File')
   })
 
-  test('Found on walkRepeat', () => {
-    expect(
-      wander.walkRepeat(['this does', 'not exist'], testFile)
-    ).toStrictEqual([])
+  test('Found on walkAll', () => {
+    expect(wander.walkAll(['this does', 'not exist'], testFile)).toStrictEqual(
+      []
+    )
 
-    expect(wander.walkRepeat(['<th>', '</th>'], testFile)).toStrictEqual([
+    expect(wander.walkAll(['<th>', '</th>'], testFile)).toStrictEqual([
       'First',
       'Second',
       'Third',
@@ -72,8 +72,8 @@ describe('wander.walk', () => {
     )
   })
 
-  test('Found on walkWithRepeat', () => {
-    expect(wander.walkWithRepeat(['<th>', '</th>'], testFile)).toStrictEqual([
+  test('Found on walkWithAll', () => {
+    expect(wander.walkWithAll(['<th>', '</th>'], testFile)).toStrictEqual([
       '<th>First</th>',
       '<th>Second</th>',
       '<th>Third</th>',
@@ -146,14 +146,14 @@ describe('wander.getTag', () => {
     )
   })
 
-  test('Found in getTagRepeat', () => {
-    expect(wander.getTagRepeat('some-class', testFile)).toStrictEqual([
+  test('Found in getTagAll', () => {
+    expect(wander.getTagAll('some-class', testFile)).toStrictEqual([
       'Some class text',
       'Some class again',
     ])
   })
 
-  expect(wander.getTagRepeat('<li', '<li>123</li><li>456</li>')).toStrictEqual([
+  expect(wander.getTagAll('<li', '<li>123</li><li>456</li>')).toStrictEqual([
     '123',
     '456',
   ])
