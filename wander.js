@@ -480,3 +480,13 @@ exports.removeEmpty = arr => {
 exports.unique = arr => {
   return Array.from(new Set(arr.map(JSON.stringify)), JSON.parse)
 }
+
+/**
+ * Remove HTML comments from string or array of strings
+ *
+ * @param {string|array} html
+ * @return {string|array}
+ */
+exports.removeComments = html => {
+  return exports.run(html, t => t.replace(/<!--.*-->/g, ''))
+}

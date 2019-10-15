@@ -92,4 +92,14 @@ module.exports = class Wanderer {
     this.value = wander.unique(this.value)
     return this
   }
+
+  filter(func) {
+    this.value = this.value.filter(func)
+    return this
+  }
+
+  removeComments() {
+    this.value = wander.removeComments(this.value)
+    return this
+  }
 }

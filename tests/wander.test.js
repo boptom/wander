@@ -233,3 +233,18 @@ test('wander.unique', () => {
     wander.unique([1, 2, 2, 2, 'a', 'a', [1, 2, 3], [1, 2, 3]])
   ).toStrictEqual([1, 2, 'a', [1, 2, 3]])
 })
+
+describe('wander.removeComments', () => {
+  test('On string', () => {
+    expect(wander.removeComments('abc <!-- comment -->def')).toBe('abc def')
+  })
+
+  test('On array', () => {
+    expect(
+      wander.removeComments([
+        'abc <!-- comment -->def',
+        '123 <!-- comment -->456',
+      ])
+    ).toStrictEqual(['abc def', '123 456'])
+  })
+})

@@ -273,3 +273,27 @@ test('wanderer.unique', () => {
     new wanderer([1, 2, 2, 2, 'a', 'a', [1, 2, 3], [1, 2, 3]]).unique().value
   ).toStrictEqual([1, 2, 'a', [1, 2, 3]])
 })
+
+test('wanderer.filter', () => {
+  expect(new wanderer([1, 2, 3, 4, 5]).filter(n => n > 3).value).toStrictEqual([
+    4,
+    5,
+  ])
+})
+
+describe('wanderer.removeComments', () => {
+  test('On string', () => {
+    expect(new wanderer('abc <!-- comment -->def').removeComments().value).toBe(
+      'abc def'
+    )
+  })
+
+  test('On array', () => {
+    expect(
+      new wanderer([
+        'abc <!-- comment -->def',
+        '123 <!-- comment -->456',
+      ]).removeComments().value
+    ).toStrictEqual(['abc def', '123 456'])
+  })
+})
