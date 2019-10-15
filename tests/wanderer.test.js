@@ -315,3 +315,15 @@ describe('wanderer.nullIfContains', () => {
     ).toStrictEqual([null, 'dog'])
   })
 })
+
+describe('wanderer.nullIfMissing', () => {
+  test('On string', () => {
+    expect(new wanderer('cat').nullIfMissing('z').value).toBe(null)
+  })
+
+  test('On array', () => {
+    expect(new wanderer(['cat', 'dog']).nullIfMissing('a').value).toStrictEqual(
+      ['cat', null]
+    )
+  })
+})

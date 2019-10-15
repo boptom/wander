@@ -503,3 +503,16 @@ exports.nullIfContains = (search, arr) => {
     return t.includes(search) ? null : t
   })
 }
+
+/**
+ * Changes to null if a string does not contain a certain string.
+ * Usually used with an array of strings.
+ *
+ * @param {array|string} arr
+ * @return {array|string}
+ */
+exports.nullIfMissing = (search, arr) => {
+  return exports.run(arr, t => {
+    return t.includes(search) ? t : null
+  })
+}

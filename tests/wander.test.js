@@ -261,3 +261,16 @@ describe('wander.nullIfContains', () => {
     ])
   })
 })
+
+describe('wander.nullIfMissing', () => {
+  test('On string', () => {
+    expect(wander.nullIfMissing('z', 'cat')).toBe(null)
+  })
+
+  test('On array', () => {
+    expect(wander.nullIfMissing('a', ['cat', 'dog'])).toStrictEqual([
+      'cat',
+      null,
+    ])
+  })
+})
